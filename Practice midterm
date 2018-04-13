@@ -1,13 +1,12 @@
-<form action="" method="post">
-    <input type="text" name="question">
-    <input type="submit" name="submit" value="Locate Question" placeholder="Enter the question number Ex: q1">
-</form>
-
 <?php
-if (isset($_POST['submit'])) {
-    // Do question stuff
+echo '<form action="'.$_SERVER['PHP_SELF']. '" method="post">';  // the $_SERVER[‘PHP_SELF’] value is the current script, this is necessary to process a form that is displayed using the script that displayed the script, for example this script.
+echo "Pick a Question";
+echo '<input type="text" name="question" placeholder="Example: q1-q10">';
+echo '<br>';
+echo '<input type="submit" name="submit">';
+echo '</form>';
 
-    $questions = [
+$questions = [
  'q1' => [
            'text' => 'What does PHP stand for?', 
             'choices' => [
@@ -102,38 +101,37 @@ if (isset($_POST['submit'])) {
             'correct' => 'b'
         ],
 ];
-}
 
 
-
-echo '<dl>';
+echo '<table width=70% border=8 cellspacing =0 cellpadding=0>';
+echo '<thead>';
+echo '<tr>'; 
+echo '<th>Question </th>';
+echo '<th>Problem</th>';
+echo '<th>Answer</th>';
+echo '</tr>'; 
+echo '</thead>';
 foreach($questions as $question=>$problem) {
     if(isset($_POST['question']) && $_POST['question'] === $question) {
-        echo '<dt>'.$question. '</dt>';
-    echo '<dt><i>'.$problem['text'] .'</i></dt>';
+        echo '<tr style="background-color: #36D2C8;">';
+    }
+    else {
+        echo '<tr>';
+    }
+
+    echo '<td>'.$question. '</td>';
+    echo '<td><i>'.$problem['text'] .'</i>';
     echo ' <dd><ol type="a">' ;
     if (!empty($problem["choices"]["a"])) { echo '<li>' .$problem["choices"]["a"]. '</li>'; }
     if (!empty($problem["choices"]["b"])) { echo '<li>' .$problem["choices"]["b"]. '</li>'; }
     if (!empty($problem["choices"]["c"])) { echo '<li>' .$problem["choices"]["c"]. '</li>'; }
     if (!empty($problem["choices"]["d"])) { echo '<li>' .$problem["choices"]["d"]. '</li>'; }
     echo '</ol></td><br>';
-    echo 'Answer:' .$problem["correct"]. '';
-    }
-    else {
-        
-    }
-
+    echo '<td>Answer:' .$problem["correct"]. '</td>';
 
 
     echo '</tr>';
 }
-
-
-?>
-
-
-
-
-
+echo '</table>';
 
 
