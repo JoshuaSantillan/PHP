@@ -104,13 +104,21 @@ if (isset($_POST['question'])) {
         ],
 ];
     $value = $_POST['question'];
-    if (empty($question)) {
-        echo "please enter a question";
-    }
-    else{
-        echo $value;
+if (isset($question[$value])) {
+     echo '<dt><i>'.$questions['text'] .'</i></dt>';
+    echo ' <dd><ol type="a">' ;
+   if (!empty($questions["choices"]['q1']["a"])) { echo '<li>' .$questions["choices"]['q1']["a"]. '</li>'; }
+   if (!empty($questions["choices"]["b"])) { echo '<li>' .$questions["choices"]["b"]. '</li>'; }
+   if (!empty($questions["choices"]["c"])) { echo '<li>' .$questions["choices"]["c"]. '</li>'; }
+   if (!empty($questions["choices"]["d"])) { echo '<li>' .$questions["choices"]["d"]. '</li>'; }
+    echo '</ol></td><br>';
+    echo 'Answer:' .$questions["correct"]. '';
+     // This checks for the question aka the $value in the array $question
+    // This is where the question information goes
+} else {
+    echo 'Invalid Input: Enter a problem q1-q10';
+    // Question doesn't exist echo some error msg
 }
-
 
 
 }
