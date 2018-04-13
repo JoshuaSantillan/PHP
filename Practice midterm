@@ -2,8 +2,8 @@
 
 <?php
 echo '<form action="" method="post">';
-echo '  <input type="text" name="question">';
-echo '<input type="submit" name="submit" value="Locate Question" placeholder="Enter the question number Ex: q1">';
+echo '<input type="text" name="question" placeholder="enter q1-q10">';
+echo '<input type="submit" name="submit" value="Locate Question" placeholder="hi">';
 echo '</form>';
 
 if (isset($_POST['question'])) {
@@ -104,15 +104,16 @@ if (isset($_POST['question'])) {
         ],
 ];
     $value = $_POST['question'];
-if (isset($question[$value])) {
-     echo '<dt><i>'.$questions['text'] .'</i></dt>';
+if (isset($questions[$value])) {
+    
+    echo '<dt><i>'.$questions[$value]['text'] .'</i></dt>';
     echo ' <dd><ol type="a">' ;
-   if (!empty($questions["choices"]['q1']["a"])) { echo '<li>' .$questions["choices"]['q1']["a"]. '</li>'; }
-   if (!empty($questions["choices"]["b"])) { echo '<li>' .$questions["choices"]["b"]. '</li>'; }
-   if (!empty($questions["choices"]["c"])) { echo '<li>' .$questions["choices"]["c"]. '</li>'; }
-   if (!empty($questions["choices"]["d"])) { echo '<li>' .$questions["choices"]["d"]. '</li>'; }
+   if (!empty($questions[$value]["choices"]["a"])) { echo '<li>' .$questions[$value]["choices"]["a"]. '</li>'; }
+   if (!empty($questions[$value]["choices"]["b"])) { echo '<li>' .$questions[$value]["choices"]["b"]. '</li>'; }
+   if (!empty($questions[$value]["choices"]["c"])) { echo '<li>' .$questions[$value]["choices"]["c"]. '</li>'; }
+   if (!empty($questions[$value]["choices"]["d"])) { echo '<li>' .$questions[$value]["choices"]["d"]. '</li>'; }
     echo '</ol></td><br>';
-    echo 'Answer:' .$questions["correct"]. '';
+    echo 'Answer:' .$questions[$value]["correct"]. '';
      // This checks for the question aka the $value in the array $question
     // This is where the question information goes
 } else {
