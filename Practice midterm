@@ -1,8 +1,16 @@
 
 
 <?php
+//
+// File: index.php
+// Description: This is the Midterm
+// Created: Tue. April 10, 2018
+// Author: Joshua Santillan
+// mail: Santj96@gmail.com
+//
+
 echo '<form action="" method="post">';
-echo '<input type="text" name="question" placeholder="enter q1-q10">';
+echo '<input type="text" name="question" placeholder="enter q1-q13">';
 echo '<input type="submit" name="submit" value="Locate Question" placeholder="hi">';
 echo '</form>';
 
@@ -27,7 +35,7 @@ if (isset($_POST['question'])) {
                 'c' => '< ?php...? >',
                 'd' => '< & >...< /& >'
             ],
-            'correct' => 'a'
+            'correct' => 'c'
         ],
     
  'q3' => [
@@ -56,7 +64,7 @@ if (isset($_POST['question'])) {
                 'c' => ';',
                 'd' => '< / php >'
             ],
-            'correct' => 'a'
+            'correct' => 'c'
         ],
  'q6' => [
            'text' => 'The PHP syntax is most similar to:',
@@ -83,7 +91,7 @@ if (isset($_POST['question'])) {
                 'a'=>'True',
                 'b'=>'False'
             ],
-            'correct' => 'a'
+            'correct' => 'b'
         ],
  'q9' => [
            'text' => 'In PHP you can use both single quotes  ( \' \' ) and double quotes ( " " ) for strings:',
@@ -102,10 +110,36 @@ if (isset($_POST['question'])) {
             ],
             'correct' => 'b'
         ],
+ 'q11' => [
+           'text' => 'What is the correct operator for the modulus sign?',
+            'choices' => [
+                'a'=>'+',
+                'b'=>'*',
+                'c'=>'%'
+            ],
+            'correct' => 'c'
+        ],
+ 'q12' => [
+           'text' => 'You are required to use closing PHP tags in a php file that is written strictly in PHP. ',
+            'choices' => [
+                'a'=>'True',
+                'b'=>'False'
+                
+            ],
+            'correct' => 'b'
+        ],
+'q13' => [
+           'text' => 'How do you feel about midterms given out during spring break?',
+            'choices' => [
+                'a'=>'We do not like then',
+                'b'=>'I was unprepared',
+                'c'=>'scary'
+            ],
+            'correct' => 'c'
+        ],
 ];
     $value = $_POST['question'];
 if (isset($questions[$value])) {
-    
     echo '<dt><i>'.$questions[$value]['text'] .'</i></dt>';
     echo ' <dd><ol type="a">' ;
    if (!empty($questions[$value]["choices"]["a"])) { echo '<li>' .$questions[$value]["choices"]["a"]. '</li>'; }
@@ -125,6 +159,7 @@ if (isset($questions[$value])) {
 }
 
 
+// This was also done with a foreach loop but the instrunctions made it seem like you did not want it done this way
 
 //echo '<dl>';
 /* foreach($questions as $question=>$problem) {
@@ -149,8 +184,7 @@ if (isset($questions[$value])) {
 }
 */
 
-
-
+?>
 
 
 
