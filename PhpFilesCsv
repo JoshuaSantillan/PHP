@@ -1,108 +1,86 @@
 <?php
-//
-// File: index.php
-// Description: TaskList
-// Created: Tue. April 16, 2018
-// Author: Joshua Santillan
-// mail: Santj96@gmail.com
-//
-
 class Task {
-
   private $description;
   private $completed;
   private $date_created;
   private $date_completed;
-
-  public function getDescription() {
-     return $this->description;
+  public function __construct($description, $completed, $date_created, $date_completed) {
+    $this->description = $description;
+    $this->completed = $completed;
+    $this->date_created = $date_created;
+    $this->date_completed = $date_completed;
   }
-  
-  public function setDescription($description) {
-     $this->description = $description;
+  public function getDescription() { // $description
+    return $this->description;
   }
-
-  public function getCompleted() {
-     return $this->completed;
+  public function setDescription($string) {
+    $this->description = $string;
   }
-  
-  public function setCompleted($completed) {
-     $this->completed = $completed;
+  public function getCompleted() { // $completed
+    return $this->completed;
   }
-
-  public function getDate_created() {
-     return $this->date_created;
+  public function setCompleted($string) {
+    $this->completed = $string;
   }
-  
-  public function setDate_created($date_created) {
-     $this->date_created = $date_created;
+  public function getCreationDate() { // $date_created
+    return $this->date_created;
   }
-
-  public function getDate_completed() {
-     return $this->date_completed;
+  public function setCreationDate($string) {
+    $this->date_created = $string;
   }
-  
-  public function setDate_completed($date_completed) {
-     $this->date_completed = $date_completed;
+  public function getCompletionDate() { // $date_completed
+    return $this->date_completed;
   }
-
+  public function setCompletionDate($string) {
+    $this->date_completed = $string;
+  }
 }
-
-
 class Tasklist {
-
-  private $Arr = array();
-  
-  public function addTask($Task1){
-    $this->Arr[] = $Task1;
-    
-  } 
-
-  public function printTask(){
-
-      if(is_array($this->Arr) or is_object($this->Arr)){
-           foreach($this->Arr as $Task2 => $value){
-               echo "<b>Description:</b> " .$value->getDescription()."<br />";
-               echo  "<b>Completed:</b> " .$value->getCompleted()."<br />";
-               echo  "<b>Created:</b> " .$value->getDate_Created()."<br />";
-               if($value->getCompleted() == "yes"){
-
-                   echo  "<b>Date Completed:</b> " .$value->getDate_Completed();
-               }            
-           }
-      }
-     
-   }
-  
+  public $tasklist;
+  public function addTask($task) {
+    $this->tasklist[] = $task;
+  }
+  public function printTasks() {
+    foreach ($this->tasklist as $i => $item) {
+        echo "Description: " . $this->tasklist[$i]->getDescription();
+        echo "<br>";
+        echo "Completed: " . $this->tasklist[$i]->getCompleted();
+        echo "<br>";
+        echo "Created on: " . $this->tasklist[$i]->getCreationDate();
+        echo "<br>";
+        if ($this->tasklist[$i]->getCompleted() == 'Yes') {
+        
+         echo "Completed on: " . $this->tasklist[$i]->getCompletionDate();
+        }
+        echo "<br><br>";
+    }
+  }
 }
-
-$t = new Task();
-$f = new Tasklist();
-
-$t->setDescription("php Assignment");
-$t->setCompleted("yes");
-$t->setDate_Created("4/16/18");
-$t->setDate_Completed("4/19/18");
-
-
+$f = new Tasklist;
+$t = new Task('This is the first description.', 'Yes', '08-08-18', '08-09-18');
 $f->addTask($t);
-$f->printTask();
-
+$t = new Task('This is the second description.', 'No', '08-08-18', '08-09-18');
+$f->addTask($t);
+$t = new Task('This is the Third description.', 'Yes', '08-08-18', '08-09-18');
+$f->addTask($t);
+$f->printTasks();
 
 
 
 
 echo "<br />";
 
-$myfile = fopen("Task.csv", "w") or die("Unable to open file!");
+
+$myfile = fopen("Task.csv", "w") or die("Unable to open file!"); //creates the file
 
 $txt = "id,description,completed,date\n";
-fwrite($myfile, $txt);
+fwrite($myfile, $txt); //header shit
+
 
 $txt = $f->addTask($t);
 fwrite($myfile, $txt);
-
 fclose($myfile);
+
 
 
 /*$myfile = fopen("Task.csv", "r") or die("Unable to open file!");
