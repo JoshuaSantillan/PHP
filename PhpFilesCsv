@@ -35,27 +35,45 @@ class Task {
     $this->date_completed = $string;
   }
 }
-class Tasklist {
-  public $tasklist;
-  public function addTask($task) {
-    $this->tasklist[] = $task;
-  }
-  public function printTasks() {
-    foreach ($this->tasklist as $i => $item) {
-        echo "Description: " . $this->tasklist[$i]->getDescription();
-        echo "<br>";
-        echo "Completed: " . $this->tasklist[$i]->getCompleted();
-        echo "<br>";
-        echo "Created on: " . $this->tasklist[$i]->getCreationDate();
-        echo "<br>";
-        if ($this->tasklist[$i]->getCompleted() == 'Yes') {
-        
-         echo "Completed on: " . $this->tasklist[$i]->getCompletionDate();
+
+
+
+        class TaskList
+        {
+            private $txt;
+            
+            function __construct() {
+                
+            }
+            public function addTasks($aTask)
+            {
+                $myfile = fopen("tasks.csv", "w") or die("Unable to open file!");
+             
+                $txt =$aTask->getDescription(). "," .$aTask->getCreationDate(). "," .$aTask->getCompleted(). "," .$aTask->getCompletionDate();
+             
+                fwrite($myfile, $txt);
+                fclose($myfile);
+            }
+            
+            public function printTasks()
+            {                        
+                $row = 1;
+                if (($handle = fopen("tasks.csv", "r")) !== FALSE) {
+                    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                        $num = count($data);
+                        $row++;
+                        for ($c=0; $c < $num; $c++) { 
+                            echo "<br>$data[$c]<br>"; 
+                        }
+                    }       
+                }
+                fclose($handle);
+            }
+            
+            public function saveAll() {}
         }
-        echo "<br><br>";
-    }
-  }
-}
+
+
 $f = new Tasklist;
 $t = new Task('This is the first description.', 'Yes', '08-08-18', '08-09-18');
 $f->addTask($t);
@@ -65,42 +83,6 @@ $t = new Task('This is the Third description.', 'Yes', '08-08-18', '08-09-18');
 $f->addTask($t);
 $f->printTasks();
 
-
-
-
-echo "<br />";
-
-
-$myfile = fopen("Task.csv", "w") or die("Unable to open file!"); //creates the file
-
-$txt = "id,description,completed,date\n";
-fwrite($myfile, $txt); //header shit
-
-
-$txt = $f->addTask($t);
-fwrite($myfile, $txt);
-fclose($myfile);
-
-
-
-/*$myfile = fopen("Task.csv", "r") or die("Unable to open file!");
-echo fread($myfile,filesize("test.csv"));
-fclose($myfile);
-$row = 1;
-$header = ["id","description","completed","date"];
-if (($handle = fopen("Task.csv", "r")) !== FALSE) {
-    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-        $num = count($data);
-        $row++;
-        for ($c=0; $c < $num; $c++) {
-            // the $header array defined above is how we can identify what 
-            // the field index is describing
-            echo $header[$c].": ".$data[$c]."\t";
-        }
-        echo "\n";
-    }
-    fclose($handle);
-}*/
 
 
 
