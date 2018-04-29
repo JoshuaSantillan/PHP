@@ -50,8 +50,13 @@ class Task {
             public function addTasks($aTask)
             {
                 $myfile = fopen("tasks.csv", "w") or die("Unable to open file!");
+                $txt = "description,completed,date created, date completed\n";
+                fwrite($myfile, $txt);
 
-                array_push($this->txt,$aTask->getDescription(). "," .$aTask->getCreationDate(). "," .$aTask->getCompleted(). "," .$aTask->getCompletionDate());
+
+
+
+                array_push($this->txt,$aTask->getDescription(). "," .$aTask->getCompleted(). "," .$aTask->getCreationDate(). "," .$aTask->getCompletionDate());
                 fputcsv($myfile, $this->txt,',');
                 array_push($this->ListofTasks, $aTask);
 
@@ -68,10 +73,11 @@ class Task {
                         $row++;
                         for ($c=0; $c < $num; $c++) { 
                             echo "<br>$data[$c]<br>"; 
-                            print "<table style=\'width:100%\'' align=\'left\"><tr>$data[$c]</tr></table>";
+                           
                         }
                     }       
                 }
+
                 fclose($handle);
             }
             
@@ -79,11 +85,13 @@ class Task {
         }
 
 
+
 $f = new Tasklist;
-$t = new Task('This is the first description.', 'Yes', '08-08-18', '08-09-18');
+
+$t = new Task('This is the first description', 'Yes', '08-08-18', '08-09-18');
 $f->addTasks($t);
 
-$t = new Task('This is the second description.', 'Yes', '08-08-18', '08-09-18');
+$t = new Task('This is the second description.', 'No', '00-00-00', '08-09-18');
 $f->addTasks($t);
 
 $t = new Task('This is the third description.', 'Yes', '08-08-18', '08-09-18');
