@@ -50,11 +50,10 @@ class Task {
                 $myfile = fopen("tasks.csv", "w") or die("Unable to open file!");
              
                 $txt =$aTask->getDescription(). "," .$aTask->getCreationDate(). "," .$aTask->getCompleted(). "," .$aTask->getCompletionDate();
-             
                 fwrite($myfile, $txt);
                 fclose($myfile);
             }
-            
+
             public function printTasks()
             {                        
                 $row = 1;
@@ -76,11 +75,7 @@ class Task {
 
 $f = new Tasklist;
 $t = new Task('This is the first description.', 'Yes', '08-08-18', '08-09-18');
-$f->addTask($t);
-$t = new Task('This is the second description.', 'No', '08-08-18', '08-09-18');
-$f->addTask($t);
-$t = new Task('This is the Third description.', 'Yes', '08-08-18', '08-09-18');
-$f->addTask($t);
+$f->addTasks($t);
 $f->printTasks();
 
 
