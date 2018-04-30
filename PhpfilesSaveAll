@@ -1,4 +1,13 @@
 <?php
+
+//
+// File: PhpFiles.php
+// Description: PhpFilescsv
+// Created: Tue. April 26, 2018
+// Author: Joshua Santillan
+// mail: Santj96@gmail.com
+//
+
 class Task {
   private $description;
   private $completed;
@@ -49,15 +58,22 @@ class Task {
             }
             public function addTasks($aTask)
             {
-                $myfile = fopen("tasks.csv", "w") or die("Unable to open file!");
-                $txt = "description,completed,date created, date completed\n";
+                $myfile = fopen("loadRecords.csv", "w") or die("Unable to open file!");
+                $txt = "Description,Completed,Date Created, Date Completed\n";
+                fwrite($myfile, $txt);
+
+                $txt = "This is the first description, Yes, 08-08-18, 08-09-18\n";
+                fwrite($myfile, $txt);
+                $txt = "This is the Second description, No, 08-08-18, 00-00-00\n";
+                fwrite($myfile, $txt);
+                $txt = "This is the Third description, Yes, 10-08-18, 10-09-18\n";
                 fwrite($myfile, $txt);
 
 
 
 
-                array_push($this->txt,$aTask->getDescription(). "," .$aTask->getCompleted(). "," .$aTask->getCreationDate(). "," .$aTask->getCompletionDate());
-                fputcsv($myfile, $this->txt,',');
+                array_push($this->txt,$aTask->getDescription(). "." .$aTask->getCompleted(). "." .$aTask->getCreationDate(). "." .$aTask->getCompletionDate());
+                fputcsv($myfile, $this->txt,'.');
                 array_push($this->ListofTasks, $aTask);
 
                 fclose($myfile);
@@ -67,7 +83,7 @@ class Task {
             public function printTasks()
             {                        
                 $row = 1;
-                if (($handle = fopen("tasks.csv", "r")) !== FALSE) {
+                if (($handle = fopen("loadRecords.csv", "r")) !== FALSE) {
                     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                         $num = count($data);
                         $row++;
@@ -87,16 +103,8 @@ class Task {
 
 
 $f = new Tasklist;
-
-$t = new Task('This is the first description', 'Yes', '08-08-18', '08-09-18');
+$t = new Task( '', '', '', '');
 $f->addTasks($t);
-
-$t = new Task('This is the second description.', 'No', '00-00-00', '08-09-18');
-$f->addTasks($t);
-
-$t = new Task('This is the third description.', 'Yes', '08-08-18', '08-09-18');
-$f->addTasks($t);
-
 $f->printTasks();
 
 
