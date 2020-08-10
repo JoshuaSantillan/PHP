@@ -4,7 +4,7 @@
 	
 	
 	
-				<form action="madlibs.php" method="post">
+			<form action="madlibs.php" method="post">
 					<input type="text" placeholder="Adjective" name="Adjective"><br>
 					<input type="text" placeholder="Another Adjective" name="Adjective2"><br>
 					<input type="text" placeholder="Verb" name="Verb"><br>
